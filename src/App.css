@@ -14,14 +14,43 @@ body {
 
 h1 {
   font-size: 2em;
+  letter-spacing: 0.03em;
 }
 
-input[type="text"] {
+form {
+  display: block;
   width: 400px;
   height: 48px;
-  outline: none;
-  padding-left: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 1.2em;
   border: 2px solid #6200ee;
-  border-radius: 4px;
+  border-radius: 3px;
+}
+
+input[type='text'] {
+  outline: none;
+  padding-left: 5px;
+  width: 350px;
+  height: 40px;
+  border: none;
+  font-size: 1.3em;
+}
+
+button {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: none;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+img {
+  width: 25px;
+  height: 25px;
 }
