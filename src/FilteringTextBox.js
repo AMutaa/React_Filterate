@@ -5,7 +5,7 @@ class FilteringTextBox extends Component {
     return (
       <div>
         <h1>Filtering Text Box</h1>
-        <div>
+        <div className='input_box'>
           <label htmlFor='fruit'></label>
           <input type='text' id='fruit' />
         </div>
