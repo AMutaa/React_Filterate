@@ -4,45 +4,50 @@ import search from './search.svg'
 
 class FilteringTextBox extends Component {
   state = {
-    fruitSuggetst: [],
-    suggestionVisibility: false,
-    value: ''
+    fruitSuggestions: ['Apple', 'Orange', 'Banana', 'Pineapple', 'Blueberry', 'Blackberry',
+      'Raspberry', 'Cranberry', 'Clementine', 'Mango', 'Papaya', 'Peach', 'Tangerine', 'Pear', 'Plum', 'Grapes',
+      'Boysenberry', 'Lychee', 'Pomegranate', 'Watermelon', 'Honey Dew Melon', 'Fig', 'Cherry', 'Grapefruit'],
+    filteredSuggestions: [],
+    suggestionsVisibility: false,
+    userInput: ''
   };
 
-
-  changeList = (e) => {
-    const fruits = ['Apple', 'Orange', 'Banana', 'Pineapple', 'Blueberry', 'Blackberry',
-      'Raspberry', 'Cranberry', 'Clementine', 'Mango', 'Papaya', 'Peach', 'Tangerine', 'Pear', 'Plum', 'Grapes',
-      'Boysenberry', 'Lychee', 'Pomegranate', 'Watermelon', 'Honey Dew Melon', 'Fig', 'Cherry', 'Grapefruit']
-
-    const updatedFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(e.target.value.toLowerCase()));
+  onChange = (e) => {
+    const { fruitSuggestions } = this.state
+    const filteredSuggestions = fruitSuggestions.filter((fruit) => fruit.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({
-      fruits: updatedFruits,
-      suggestionVisibility: true
+      filteredSuggestions,
+      suggestionVisibility: true,
+      userInput: ''
     })
   }
 
-  changeValue = (e) => {
-    console.log(e.target.textContent)
+  onClick = (e) => {
+    this.setState({
+      userInput: e.target.innerText,
+      suggestionVisibility: false
+    })
   }
 
 
+
+
   render() {
-    const { suggestionVisibility, fruits, value } = this.state
+    const { suggestionVisibility, filteredSuggestions } = this.state
     return (
       <div>
         <h1>Filtering Text Box</h1>
         <form action="" autoComplete='off'>
           <div className='input_box'>
             <label htmlFor='fruit'></label>
-            <input type='text' id='fruit' onChange onKeyDown={this.changeList} placeholder='Search...' />
+            <input type='text' id='fruit' onKeyDown={this.onChange} placeholder='Search...' />
           </div>
           <button type='submit'><img src={search} alt="" id='search' /></button>
         </form>
         <div>
           {suggestionVisibility && <ul>
-            {fruits.map((fruit, idx) => (
-              <li onClick={this.changeValue} key={idx}>{fruit}</li>
+            {filteredSuggestions.map((suggestion, index) => (
+              <li onClick={this.onClick} key={index}>{suggestion}</li>
             ))}
           </ul>}
         </div>
