@@ -28,6 +28,7 @@ form {
   font-size: 1.2em;
   border: 2px solid #6200ee;
   border-radius: 3px;
+  margin-bottom: 20px;
 }
 
 input[type='text'] {
