@@ -3,17 +3,13 @@ import search from './search.svg'
 
 
 class FilteringTextBox extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { fruits: [] };
-    this.changeList = this.changeList.bind(this);
-  }
+  state = { fruits: [] };
 
-  changeList(e) {
+
+  changeList = (e) => {
     const fruits = ['Apple', 'Orange', 'Banana', 'Pineapple', 'Blueberry', 'Blackberry',
       'Raspberry', 'Cranberry', 'Clementine', 'Mango', 'Papaya', 'Peach', 'Tangerine', 'Pear', 'Plum', 'Grapes',
       'Boysenberry', 'Lychee', 'Pomegranate', 'Watermelon', 'Honey Dew Melon', 'Fig', 'Cherry', 'Grapefruit']
-
     const updatedFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({
       fruits: updatedFruits
