@@ -27,7 +27,7 @@ form {
   align-items: center;
   font-size: 1.2em;
   border: 2px solid #6200ee;
-  border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px;
 }
 
 input[type='text'] {
@@ -48,7 +48,7 @@ button {
   background: none;
   border-radius: 3px;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
 }
 
 img {
@@ -59,19 +59,23 @@ img {
 ul {
   padding: 0 0;
   margin: 0;
-  border: 1px solid gray;
+  border: 2px solid #6200ee;
   border-top: none;
+  border-radius: 0 0 3px 3px;
+  overflow-y: auto;
+  max-height: 300px;
 }
 
 li {
   list-style: none;
   text-align: left;
   font-size: 1.2em;
-  border-bottom: 1px solid gray;
+
   padding: 5px 5px;
 }
 
 li:hover {
   background-color: #6200ee;
+  border-bottom: 1px solid #6200ee;
   color: white;
 }

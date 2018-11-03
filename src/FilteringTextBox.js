@@ -26,16 +26,15 @@ class FilteringTextBox extends Component {
     this.setState({
       userInput: e.target.innerText,
       suggestionsVisibility: false,
-
     })
+
   }
 
-  keyUp = (e) => {
+  keyDown = (e) => {
     if (e.target.value === '') {
       this.state({
         suggestionsVisibility: false,
         filteredSuggestions: []
-
       })
     }
   }
@@ -51,7 +50,7 @@ class FilteringTextBox extends Component {
         <form action="" autoComplete='off'>
           <div className='input_box'>
             <label htmlFor='fruit'></label>
-            <input type='text' id='fruit' value={userInput} onChange={this.onChange} onKeyUp={this.onKeyUp} placeholder='Search...' />
+            <input type='text' id='fruit' value={userInput} onChange={this.onChange} onKeyUp={this.onKeyDown} placeholder='Search...' />
           </div>
           <button type='submit'><img src={search} alt="" id='search' /></button>
         </form>
