@@ -47,21 +47,22 @@ class FilteringTextBox extends Component {
     return (
       <div>
         <h1>Filtering Text Box</h1>
-        <form action="" autoComplete='off'>
-          <div className='input_box'>
-            <label htmlFor='fruit'></label>
-            <input type='text' id='fruit' value={userInput} onChange={this.onChange} onKeyUp={this.onKeyDown} placeholder='Search...' />
+        <div className="App">
+          <form action="" autoComplete='off'>
+            <div className='input_box'>
+              <label htmlFor='fruit'></label>
+              <input type='text' id='fruit' value={userInput} onChange={this.onChange} onKeyUp={this.onKeyDown} placeholder='Search...' />
+            </div>
+            <button type='submit'><img src={search} alt="" id='search' /></button>
+          </form>
+          <div>
+            {suggestionsVisibility && <ul>
+              {filteredSuggestions.map((suggestion, index) => (
+                <li onClick={this.onClick} key={index}>{suggestion}</li>
+              ))}
+            </ul>}
           </div>
-          <button type='submit'><img src={search} alt="" id='search' /></button>
-        </form>
-        <div>
-          {suggestionsVisibility && <ul>
-            {filteredSuggestions.map((suggestion, index) => (
-              <li onClick={this.onClick} key={index}>{suggestion}</li>
-            ))}
-          </ul>}
         </div>
-
       </div >
     )
   }
