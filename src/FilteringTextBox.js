@@ -17,15 +17,15 @@ class FilteringTextBox extends Component {
     const filteredSuggestions = fruitSuggestions.filter((fruit) => fruit.toLowerCase().includes(e.target.value.toLowerCase()));
     this.setState({
       filteredSuggestions,
-      suggestionVisibility: true,
-      userInput: ''
+      suggestionsVisibility: true,
+      userInput: e.target.value
     })
   }
 
   onClick = (e) => {
     this.setState({
       userInput: e.target.innerText,
-      suggestionVisibility: false
+      suggestionsVisibility: true
     })
   }
 
@@ -33,19 +33,19 @@ class FilteringTextBox extends Component {
 
 
   render() {
-    const { suggestionVisibility, filteredSuggestions } = this.state
+    const { suggestionsVisibility, filteredSuggestions, userInput } = this.state
     return (
       <div>
         <h1>Filtering Text Box</h1>
         <form action="" autoComplete='off'>
           <div className='input_box'>
             <label htmlFor='fruit'></label>
-            <input type='text' id='fruit' onKeyDown={this.onChange} placeholder='Search...' />
+            <input type='text' id='fruit' value={userInput} onChange={this.onChange} placeholder='Search...' />
           </div>
           <button type='submit'><img src={search} alt="" id='search' /></button>
         </form>
         <div>
-          {suggestionVisibility && <ul>
+          {suggestionsVisibility && <ul>
             {filteredSuggestions.map((suggestion, index) => (
               <li onClick={this.onClick} key={index}>{suggestion}</li>
             ))}
