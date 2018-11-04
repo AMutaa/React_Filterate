@@ -12,35 +12,41 @@ class FilteringTextBox extends Component {
     userInput: ''
   };
 
-  onChange = (e) => {
+  handleChange = (e) => {
+
     const { fruitSuggestions } = this.state
-    const filteredSuggestions = fruitSuggestions.filter((fruit) => fruit.toLowerCase().includes(e.target.value.toLowerCase()));
-    this.setState({
-      filteredSuggestions,
-      suggestionsVisibility: true,
-      userInput: e.target.value
-    })
-  }
+    const fruitName = e.target.value
+    if (fruitName.length >= 3) {
+      console.log('we logged three');
 
-  onClick = (e) => {
-    this.setState({
-      userInput: e.target.innerText,
-      suggestionsVisibility: false,
-    })
+      const filteredSuggestions = fruitSuggestions.filter((fruit) => fruit.toLowerCase().includes(fruitName.toLowerCase()));
+      console.log(fruitName.length)
+      this.setState({
+        filteredSuggestions,
+        suggestionsVisibility: true,
+        userInput: fruitName
 
-  }
-
-  keyDown = (e) => {
-    if (e.target.value === '') {
-      this.state({
-        suggestionsVisibility: false,
-        filteredSuggestions: []
       })
     }
   }
 
+  handleKeyDown = (e) => {
+    const { fruitSuggestions } = this.state
+    if (!fruitSuggestions.includes(e.target.value) && e.keyCode === 13) {
+      const newSuggestions = fruitSuggestions.push(e.target.value)
+      this.setState({
+        fruitSuggestions: newSuggestions,
+        userInput: e.target.value
+      })
+    }
+  }
 
-
+  handleClick = (e) => {
+    this.setState({
+      userInput: e.target.innerText,
+      suggestionsVisibility: false,
+    })
+  }
 
   render() {
     const { suggestionsVisibility, filteredSuggestions, userInput } = this.state
@@ -51,14 +57,14 @@ class FilteringTextBox extends Component {
           <form action="" autoComplete='off'>
             <div className='input_box'>
               <label htmlFor='fruit'></label>
-              <input type='text' id='fruit' value={userInput} onChange={this.onChange} onKeyUp={this.onKeyDown} placeholder='Search...' />
+              <input type='text' id='fruit' value={userInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown} placeholder='Search...' />
             </div>
             <button type='submit'><img src={search} alt="" id='search' /></button>
           </form>
           <div>
             {suggestionsVisibility && <ul>
               {filteredSuggestions.map((suggestion, index) => (
-                <li onClick={this.onClick} key={index}>{suggestion}</li>
+                <li onClick={this.handleClick} key={index}>{suggestion}</li>
               ))}
             </ul>}
           </div>
