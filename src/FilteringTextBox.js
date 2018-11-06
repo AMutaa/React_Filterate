@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 
 export default class FilteringTextBox extends Component {
+  // SET OUR INITIAL STATE
   state = {
     fruits: ['Apple', 'Orange', 'Banana', 'Pineapple', 'Blueberry', 'Blackberry',
       'Raspberry', 'Cranberry', 'Clementine', 'Mango', 'Papaya', 'Peach', 'Tangerine', 'Pear', 'Plum', 'Grapes',
@@ -36,6 +37,7 @@ export default class FilteringTextBox extends Component {
         searchInput: e.target.value
       })
     }
+    // IF TYPED CHARACTERS ARE MORE THAN OR EQUAL TO 3, SET FILTER RESULTS TO STATE
     if (typedChar.length >= 3) {
       this.setState({
         filteredFruits,
@@ -44,8 +46,8 @@ export default class FilteringTextBox extends Component {
     }
   }
 
-  // THIS WILL HANDLE THE FORM SUBMITTION , AND ALSO PREVENT THE FORM FROM DESTROYING
-  // GOING TO CHECK IF WE HAVE AN INPUT, IN OUR FRIUTS ARRAY, IF WE ADD IT AND SET TO LOCAL STORAGE
+  //HANDLE THE FORM SUBMISSION , AND ALSO PREVENT THE FORM FROM DESTROYING
+  // GOING TO CHECK IF WE HAVE AN INPUT THAT DOESNT EXIST IN OUR FRIUTS ARRAY, IF WE DO, ADD IT TO THE ARRAY AND SET TO LOCAL STORAGE
   handleSubmit = (e) => {
     e.preventDefault()
     console.log(this.state.searchInput);
@@ -61,16 +63,13 @@ export default class FilteringTextBox extends Component {
     fruitFinder(newFruit)
   }
 
-  // FOR AUTO COMPLETE
+  // FOR AUTO COMPLETION WHEN WE CLICK ON AN ITEM IN OUR FRUIT LIST
   handleClick = (e) => {
-    console.log('clicked' + e.target.innerText)
     this.setState({
       searchInput: e.target.innerText,
       displayFruits: false
     })
   }
-
-
 
   render() {
     const { filteredFruits, searchInput, displayFruits } = this.state
@@ -85,6 +84,8 @@ export default class FilteringTextBox extends Component {
     )
   }
 }
+
+//IMPLEMENTED REACT STYLED COMPONENTS TO KEEP MY CSS IN THE COMPONENT ITSELF
 
 const InputField = styled.input`
 width: 400px;
