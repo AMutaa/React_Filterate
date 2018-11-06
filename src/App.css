@@ -11,3 +11,9 @@ body {
   justify-content: center;
   text-align: center;
 }
+
+h1 {
+  font-size: 2em;
+  letter-spacing: 3px;
+  color: #6200ee;
+}

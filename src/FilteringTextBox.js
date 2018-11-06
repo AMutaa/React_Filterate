@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components'
-// import friuts from './friuts'
+
 
 export default class FilteringTextBox extends Component {
   state = {
@@ -9,36 +9,34 @@ export default class FilteringTextBox extends Component {
       'Boysenberry', 'Lychee', 'Pomegranate', 'Watermelon', 'Honey Dew Melon', 'Fig', 'Cherry', 'Grapefruit'
     ],
     filteredFruits: [],
-    search: '',
+    searchInput: '',
     displayFruits: false
   }
 
-
+  // FIRST CHECK FOR FRUITS IN OUR LOCAL STORAGE, IF THERE IS, SET THEM TO STATE
   componentDidMount() {
-    if (localStorage.getItem('name')) {
+    if (localStorage.getItem('newFr')) {
       console.log('we have items')
-      const storedData = JSON.parse(localStorage.getItem('name'));
-      console.log(storedData)
+      const storedFruits = JSON.parse(localStorage.getItem('newFr'));
+      console.log(storedFruits)
       this.setState({
-        fruits: storedData
+        fruits: storedFruits
       })
     }
   }
 
-
-
-
-  // Listener for change that has been typed in the input
+  // LISTEN FOR CHANGE BY TYPING IN THE INPUT FIELD
   handleChange = (e) => {
     const { fruits } = this.state
-    const userInput = e.target.value.toLowerCase()
-    const filteredFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(userInput))
-    if (userInput.length >= 0) {
+    const typedChar = e.target.value.toLowerCase()
+    // FILTER EXISTING FRUITS WITH TYPED CHARACTERS
+    const filteredFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(typedChar))
+    if (typedChar.length >= 0) {
       this.setState({
-        search: e.currentTarget.value
+        searchInput: e.target.value
       })
     }
-    if (userInput.length >= 3) {
+    if (typedChar.length >= 3) {
       this.setState({
         filteredFruits,
         displayFruits: true
@@ -50,26 +48,24 @@ export default class FilteringTextBox extends Component {
   // GOING TO CHECK IF WE HAVE AN INPUT, IN OUR FRIUTS ARRAY, IF WE ADD IT AND SET TO LOCAL STORAGE
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state.search);
-    const newFruit = this.state.search
-    const stateFruit = this.state.fruits;
-    console.log(stateFruit);
+    console.log(this.state.searchInput);
+    const newFruit = this.state.searchInput
+    const oldFruits = this.state.fruits;
+    console.log(oldFruits);
     function fruitFinder(newFruit) {
-      if (!stateFruit.includes(newFruit)) {
-        let newFruits = [...stateFruit, newFruit]
-        localStorage.setItem('name', JSON.stringify(newFruits))
+      if (!oldFruits.includes(newFruit)) {
+        let newFruits = [...oldFruits, newFruit]
+        localStorage.setItem('newFr', JSON.stringify(newFruits))
       }
     }
     fruitFinder(newFruit)
-
-
   }
 
   // FOR AUTO COMPLETE
   handleClick = (e) => {
     console.log('clicked' + e.target.innerText)
     this.setState({
-      search: e.target.innerText,
+      searchInput: e.target.innerText,
       displayFruits: false
     })
   }
@@ -77,12 +73,12 @@ export default class FilteringTextBox extends Component {
 
 
   render() {
-    const { filteredFruits, search, displayFruits } = this.state
+    const { filteredFruits, searchInput, displayFruits } = this.state
     return (
       <Fragment>
         <h1>Filtering Text Box</h1>
         <form onSubmit={this.handleSubmit}>
-          <InputField type='search' value={search} placeholder='Search Fruits...' onChange={this.handleChange} />
+          <InputField type='search' value={searchInput} placeholder='Search Fruits...' onChange={this.handleChange} />
         </form>
         <FruitsUL>{displayFruits && filteredFruits.map((fruit, idx) => <Fruit key={idx} onClick={this.handleClick}>{fruit}</Fruit>)}</FruitsUL>
       </Fragment >
@@ -126,7 +122,7 @@ display:grid;
 align-items:center;
 cursor: pointer;
  &:hover {
-    background:#757575;
+    background:#b188ea;
     color:white;
     font-weight:bold;
   }
