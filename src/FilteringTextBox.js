@@ -12,34 +12,32 @@ export default class FilteringTextBox extends Component {
     searchInput: ''
   }
 
-
   // LISTEN FOR CHANGE BY TYPING IN THE INPUT FIELD
   handleChange = (e) => {
     const { fruits } = this.state;
     const typedChar = e.target.value.toLowerCase()
-    // FILTER EXISTING FRUITS WITH TYPED CHARACTERS
-    const filteredFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(typedChar))
+    // CHANGE SEARCH INPUT STATE AS SOON AS FIRST CHARACTER IS ENTERED
     if (typedChar.length >= 0) {
       this.setState({
         searchInput: e.target.value
       })
     }
-    // IF TYPED CHARACTERS ARE MORE THAN OR EQUAL TO 3, SET FILTER RESULTS TO STATE
+    // IF TYPED CHARACTERS ARE MORE THAN OR EQUAL TO 3, FILTER EXISTING FRUITS WITH TYPED CHARACTERS
+    const filteredFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(typedChar))
+    //SET FILTER RESULTS TO STATE
     if (typedChar.length >= 3) {
       this.setState({
         filteredFruits,
-
       })
     }
   }
 
-
   //HANDLE THE FORM SUBMISSION , AND ALSO PREVENT THE FORM FROM DESTROYING
-  // GOING TO CHECK IF WE HAVE AN INPUT THAT DOESNT EXIST IN OUR FRIUTS ARRAY, IF WE DO, ADD IT TO THE ARRAY AND SET TO LOCAL STORAGE
   handleSubmit = (e) => {
     e.preventDefault()
     const newFruit = this.state.searchInput;
     const oldFruits = this.state.fruits;
+    // CHECK IF THE INPUT DOESNT EXIST IN OUR FRIUTS ARRAY, IF SO, ADD IT TO THE ARRAY AND SET TO LOCAL STORAGE
     function fruitFinder(newFruit) {
       if (!oldFruits.includes(newFruit)) {
         let newFruits = [...oldFruits, newFruit]
@@ -55,7 +53,6 @@ export default class FilteringTextBox extends Component {
       })
     }
   }
-
 
   // FOR AUTO COMPLETION WHEN WE CLICK ON AN ITEM IN OUR FRUIT LIST
   handleClick = (e) => {
