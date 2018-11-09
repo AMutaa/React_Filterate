@@ -19,3 +19,7 @@ h1 {
   font-weight: 400;
   color: #6200ee;
 }
+
+.input_field {
+  background-color: brown;
+}

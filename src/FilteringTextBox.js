@@ -12,22 +12,31 @@ export default class FilteringTextBox extends Component {
     searchInput: ''
   }
 
+  componentDidMount() {
+    if (localStorage.getItem('newFr')) {
+      const storedFruits = JSON.parse(localStorage.getItem('newFr'));
+      this.setState({
+        fruits: storedFruits,
+      })
+    }
+  }
+
   // LISTEN FOR CHANGE BY TYPING IN THE INPUT FIELD
   handleChange = (e) => {
     const { fruits } = this.state;
     const typedChar = e.target.value.toLowerCase()
+
     // CHANGE SEARCH INPUT STATE AS SOON AS FIRST CHARACTER IS ENTERED
-    if (typedChar.length >= 0) {
-      this.setState({
-        searchInput: e.target.value
-      })
-    }
+    this.setState({
+      searchInput: e.target.value
+    })
+
     // IF TYPED CHARACTERS ARE MORE THAN OR EQUAL TO 3, FILTER EXISTING FRUITS WITH TYPED CHARACTERS
-    const filteredFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(typedChar))
     //SET FILTER RESULTS TO STATE
     if (typedChar.length >= 3) {
+      const filteredFruits = fruits.filter((fruit) => fruit.toLowerCase().includes(typedChar))
       this.setState({
-        filteredFruits,
+        filteredFruits
       })
     }
   }
@@ -68,7 +77,7 @@ export default class FilteringTextBox extends Component {
       <Fragment>
         <h1>Filtering Text Box</h1>
         <form onSubmit={this.handleSubmit}>
-          <InputField type='search' value={searchInput} placeholder='Search Fruits...' onChange={this.handleChange} />
+          <InputField className='input_field' type='search' value={searchInput} placeholder='Search Fruits...' onChange={this.handleChange} />
         </form>
         <FruitsUL>
           {searchInput.length >= 3 && filteredFruits.map((fruit, idx) => <Fruit key={idx} onClick={this.handleClick}>{fruit}</Fruit>)}
@@ -93,8 +102,9 @@ border-bottom: none;
 margin-bottom:0;
 border-bottom-left-radius:0px;
 border-bottom-right-radius:0px;
-background:#F5F5F5;
+background:#F5F5F5 !important;
 font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
 `;
 
 const FruitsUL = styled.div`
